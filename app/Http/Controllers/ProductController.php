@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::latest()->paginate(3);
+        $products = Product::latest()->paginate(5);
 
         return view('products.index', compact('products'))->with(request()->input('page'));
     }
@@ -85,6 +85,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        //delete the product
+        $product->delete();
+          // redirect the user and sent friendly massage
+          return redirect()->route('products.index')->with('success','Product deleted successfully');
+
     }
 }
